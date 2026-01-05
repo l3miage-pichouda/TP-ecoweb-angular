@@ -21,14 +21,74 @@
     .sign-up-btn {
       margin-left: auto;
       color: var(--white-color);
-      background-color: var(--green-color);;
-      border-color: var(--green-color);;
+      background-color: var(--green-color);
+      border-color: var(--green-color);
 
       &:hover {
-        color: var(--white-color);;
+        color: var(--white-color);
         background-color: var(--extra-green-color);
         border-color: var(--extra-green-color);
       }
     }
+  }
+}
+
+.step-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.navigation-arrows {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.arrow-btn {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.arrow-btn:hover:not(:disabled) {
+  background-color: #f0f0f0;
+}
+
+.arrow-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.progress-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ccc;
+}
+
+.progress-dots span.active {
+  background: #007bff;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

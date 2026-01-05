@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -17,13 +18,15 @@ import { FormErrorsComponent } from '../shared/ui/form-errors';
 import { TypedFormGroup } from '../shared/utils';
 
 @Component({
-    selector: 'app-login',
-    imports: [FormErrorsComponent, ReactiveFormsModule, RouterLink],
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-login',
+  imports: [FormErrorsComponent, ReactiveFormsModule, RouterLink, NgIf],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class LoginComponent implements OnDestroy {
+  currentStep = 1;
+  totalSteps = 2;
   readonly #authStore = inject(AuthStore);
   readonly errorResponse = this.#authStore.selectors.errorResponse;
   readonly loginForm: TypedFormGroup<LoginBodyRequest> = new FormGroup({
@@ -38,6 +41,14 @@ export default class LoginComponent implements OnDestroy {
 
   login(): void {
     this.#authStore.login(this.loginForm);
+  }
+
+  nextStep() {
+    this.currentStep++;
+  }
+
+  prevStep() {
+    this.currentStep--;
   }
 
   ngOnDestroy(): void {

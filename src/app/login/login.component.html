@@ -4,22 +4,42 @@
 
   <form [formGroup]="loginForm" class="login-form" (ngSubmit)="login()">
     <app-form-errors [errorResponse]="errorResponse"></app-form-errors>
-    <input
-      type="email"
-      formControlName="email"
-      class="form-control form-control-lg"
-      autocomplete="new-email"
-      placeholder="Email"
-    />
-    <input
-      type="password"
-      formControlName="password"
-      class="form-control form-control-lg"
-      autocomplete="new-password"
-      placeholder="Password"
-    />
-    <button type="submit" class="btn sign-in-btn btn-lg">
-      Sign in
-    </button>
+    <section class="step-container" *ngIf="currentStep === 1">
+      <input
+        type="email"
+        formControlName="email"
+        class="form-control form-control-lg"
+        autocomplete="new-email"
+        placeholder="Email"
+      />
+      <div class="navigation-arrows">
+        <span></span>
+        <button
+          type="button"
+          class="arrow-btn"
+          (click)="nextStep()"
+          [disabled]="
+            loginForm.get('email')?.invalid || loginForm.get('email')?.untouched
+          "
+        >
+          Next →
+        </button>
+      </div>
+    </section>
+    <section class="step-container" *ngIf="currentStep === 2">
+      <input
+        type="password"
+        formControlName="password"
+        class="form-control form-control-lg"
+        autocomplete="new-password"
+        placeholder="Password"
+      />
+      <div class="navigation-arrows">
+        <button type="button" class="arrow-btn" (click)="prevStep()">
+          ← Back
+        </button>
+        <button type="submit" class="btn sign-in-btn btn-lg">Sign in</button>
+      </div>
+    </section>
   </form>
 </div>
