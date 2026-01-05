@@ -7,7 +7,7 @@
         </p>
       </div>
       <div class="card-footer">
-        <img alt="avatar" [src]="comment.author.image" class="avatar" />
+        <img [src]="comment.author.image" class="avatar" />
         <a class="author" [routerLink]="['/@' + comment.author.username]">{{
           comment.author.username
         }}</a>

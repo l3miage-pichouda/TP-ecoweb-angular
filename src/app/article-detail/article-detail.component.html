@@ -44,7 +44,7 @@
 
   <ng-template #articleMeta let-type="type">
     <div class="article-meta">
-      <img alt="avatar" class="avatar" [src]="article.author.image" />
+      <img class="avatar" [src]="article.author.image" />
       <div class="info">
         <a
           [routerLink]="['/@' + article.author.username]"
