@@ -35,3 +35,198 @@
     }
   }
 }
+$worm-segment-thickness: 40px;
+$worm-segment-size: 300px + $worm-segment-thickness * 2;
+$worm-segment-border-radius: 80px;
+$worm-segment-scale-step: 0.09;
+$worm-segment-colors: #e12674, #c5236b, #aa2163, #8f1f5b, #751e53, #5c1d4c,
+  #451b45, #2d1a3e;
+$worm-segment-qty: length($worm-segment-colors);
+
+$worm-throat-thickness: 30px;
+$worm-throat-size: 170px;
+$worm-throat-border-radius: 45px;
+$worm-throat-translate-step: 20px;
+$worm-throat-colors: #371b41, #421b44, #4c1c47, #561c4a, #611d4d, #6c1d50,
+  #771e54, #821e57;
+$worm-throat-qty: length($worm-throat-colors);
+
+$worm-eye-size: 120px;
+$worm-eye-bg-color: #fff;
+$worm-eye-pupil-color: #000000;
+$worm-eye-pupil-size: 60px;
+$worm-eye-position-translate: 40px;
+$worm-eye-border-width: 20px;
+
+$worm-tooth-size: 50px;
+$worm-tooth-colors: #f5f1f3, #dbd4da, #c2b9c2, #aa9eab, #938595, #7d6e81,
+  #685a6f, #554860;
+$worm-tooth-qty: 12;
+$worm-tooth-border-radius: 10px;
+$worm-tooth-animation-duration: 2s;
+$worm-tooth-animation-all-cv: false;
+
+$worm-tooth-path: path(
+  "M250.5,300.5h-200c-27.6,0-50-22.4-50-50v-200c0-27.6,22.4-50,50-50h200c27.6,0,50,22.4,50,50v200C300.5,278.1,278.1,300.5,250.5,300.5z"
+);
+
+* {
+  box-sizing: border-box;
+
+  &:before,
+  &:after {
+    box-sizing: border-box;
+  }
+}
+
+.worm {
+  top: 100px;
+  position: relative;
+  width: $worm-segment-size;
+  height: $worm-segment-size;
+  margin: 0 auto;
+
+  .body {
+    position: relative;
+    width: $worm-segment-size;
+    height: $worm-segment-size;
+    overflow: hidden;
+  }
+
+  .eye {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $worm-eye-size;
+    height: $worm-eye-size;
+    background-color: $worm-eye-bg-color;
+    border-radius: 100%;
+    border: $worm-eye-border-width solid nth($worm-segment-colors, 1);
+    z-index: $worm-segment-qty * 2 + 1;
+    transform: translate(
+      -$worm-eye-position-translate,
+      -$worm-eye-position-translate
+    );
+
+    &.right {
+      left: auto;
+      right: 0;
+      transform: translate(
+        $worm-eye-position-translate,
+        -$worm-eye-position-translate
+      );
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      background-color: $worm-eye-pupil-color;
+      width: $worm-eye-pupil-size;
+      height: $worm-eye-pupil-size;
+      border-radius: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .segment {
+    position: absolute;
+    width: $worm-segment-size;
+    height: $worm-segment-size;
+
+    &:before {
+      content: "";
+      position: absolute;
+      z-index: 2;
+
+      width: $worm-segment-size;
+      height: $worm-segment-size;
+      border: $worm-segment-thickness solid;
+      border-radius: $worm-segment-border-radius;
+    }
+
+    @for $i from 1 through $worm-segment-qty {
+      $color: nth($worm-segment-colors, $i);
+      $toothColor: nth($worm-tooth-colors, $i);
+      $animation: offset-tooth-cv;
+
+      @if $i % 2 == 0 and not $worm-tooth-animation-all-cv {
+        $animation: offset-tooth-ccv;
+      }
+
+      &-#{$i} {
+        z-index: $worm-segment-qty * 2 - $i + 1;
+        transform: scale(
+          1 + $worm-segment-scale-step - $worm-segment-scale-step * $i
+        );
+
+        &:before {
+          border-color: $color;
+        }
+        .tooth {
+          background: linear-gradient(-45deg, $toothColor 35%, $color 100%);
+          animation: $animation $worm-tooth-animation-duration linear infinite;
+        }
+      }
+    }
+
+    .tooth {
+      position: absolute;
+      top: $worm-segment-thickness;
+      left: $worm-segment-thickness;
+
+      width: $worm-tooth-size;
+      height: $worm-tooth-size;
+
+      transform: rotate(45deg);
+      border-radius: 0 0 $worm-tooth-border-radius 0;
+
+      offset-path: $worm-tooth-path;
+
+      @for $i from 1 through $worm-tooth-qty {
+        &-#{$i} {
+          animation-delay: $worm-tooth-animation-duration /
+            $worm-tooth-qty *
+            $i;
+        }
+      }
+    }
+  }
+
+  .throat {
+    width: $worm-throat-size;
+    height: $worm-throat-size;
+    position: absolute;
+    border: $worm-throat-thickness solid;
+    border-radius: $worm-throat-border-radius;
+    top: 50%;
+    left: 50%;
+    margin-top: -$worm-throat-size/2;
+    margin-left: -$worm-throat-size/2;
+
+    @for $i from 1 through $worm-throat-qty {
+      $color: nth($worm-throat-colors, $i);
+
+      &-#{$i} {
+        z-index: $worm-throat-qty - $i + 1;
+        margin-top: -$worm-throat-size/2 +
+          $worm-throat-translate-step *
+          ($i - 1);
+        border-color: $color;
+      }
+    }
+  }
+}
+
+@-webkit-keyframes offset-tooth-cv {
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+@-webkit-keyframes offset-tooth-ccv {
+  100% {
+    offset-distance: -100%;
+  }
+}
