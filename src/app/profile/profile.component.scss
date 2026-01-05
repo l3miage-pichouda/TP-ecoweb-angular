@@ -1,32 +1,100 @@
+/* Mobile-first: default mobil */
 .banner {
   background-color: var(--white-gray-color);
   color: var(--blue-black-color);
-  padding: 2rem;
-  position: absolute;
+  padding: 1rem;
+  position: relative; /* absolute yerine relative, mobil uyumlu */
   width: 100%;
-  left: 0;
-  top: 58px;
+  top: 0;
+
   .container {
-    max-width: 1176px;
+    width: 100%;
+    padding: 0 10px; /* kenarlarda boşluk */
 
     .user-info {
       text-align: center;
 
-      .username {
-        font-weight: 700;
-      }
-
       .avatar {
         border-radius: 50%;
-        width: 100px;
-        height: 100px;
-        margin-bottom: 16px;
+        width: 80px;   /* mobilde daha küçük */
+        height: 80px;
+        margin-bottom: 12px;
+      }
+
+      .username {
+        font-weight: 700;
+        font-size: 1.3rem; /* mobil için küçük font */
       }
     }
   }
 }
+
+/* Content alanı */
 .content {
   position: relative;
-  margin-top: 263px;
-  max-width: 1140px;
+  margin-top: 120px; /* mobilde daha küçük üst boşluk */
+  width: 100%;
+  padding: 0 10px;
+  max-width: 100%;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .banner {
+    padding: 1.5rem;
+
+    .container {
+      max-width: 720px;
+
+      .user-info {
+        .avatar {
+          width: 100px;
+          height: 100px;
+          margin-bottom: 16px;
+        }
+
+        .username {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+
+  .content {
+  position: relative;
+  margin-top: 0; /* margin-top kaldırıldı */
+  width: 100%;
+  padding: 10px 10px 0 10px; /* üst boşluğu container içindeki padding ile kontrol edebilirsin */
+  max-width: 100%;
+}
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .banner {
+    padding: 2rem;
+
+    .container {
+      max-width: 1176px;
+
+      .user-info {
+        .avatar {
+          width: 120px;
+          height: 120px;
+        }
+
+        .username {
+          font-size: 1.8rem;
+        }
+      }
+    }
+  }
+
+  .content {
+  position: relative;
+  margin-top: 0; /* margin-top kaldırıldı */
+  width: 100%;
+  padding: 10px 10px 0 10px; /* üst boşluğu container içindeki padding ile kontrol edebilirsin */
+  max-width: 100%;
+}
 }
