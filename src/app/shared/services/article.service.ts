@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
@@ -8,7 +8,7 @@ import {
   Comment,
   CommentAPIResponse,
   CommentListAPIResponse,
-  PagingQueryParams
+  PagingQueryParams,
 } from '../models';
 
 export type UpsertArticleBodyRequest = Pick<
@@ -29,22 +29,34 @@ export type InsertCommentBodyRequest = Pick<Comment, 'body'>;
 })
 export class ArticleService {
   readonly #httpClient = inject(HttpClient);
+  private readonly headers = new HttpHeaders()
+    .set('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+    .set('Pragma', 'no-cache')
+    .set('Expires', '0');
 
   createArticle(
     article: UpsertArticleBodyRequest
   ): Observable<ArticleAPIResponse> {
-    return this.#httpClient.post<ArticleAPIResponse>('/articles', {
-      article,
-    });
+    return this.#httpClient.post<ArticleAPIResponse>(
+      '/articles',
+      {
+        article,
+      },
+      { headers: this.headers }
+    );
   }
 
   updateArticle(
     slug: string,
     article: UpsertArticleBodyRequest
   ): Observable<ArticleAPIResponse> {
-    return this.#httpClient.put<ArticleAPIResponse>(`/articles/${slug}`, {
-      article,
-    });
+    return this.#httpClient.put<ArticleAPIResponse>(
+      `/articles/${slug}`,
+      {
+        article,
+      },
+      { headers: this.headers }
+    );
   }
 
   deleteArticle(slug: string): Observable<Object> {
@@ -53,7 +65,8 @@ export class ArticleService {
 
   getCommentsForArticle(slug: string): Observable<CommentListAPIResponse> {
     return this.#httpClient.get<CommentListAPIResponse>(
-      `/articles/${slug}/comments`
+      `/articles/${slug}/comments`,
+      { headers: this.headers }
     );
   }
 
@@ -65,7 +78,8 @@ export class ArticleService {
       `/articles/${slug}/comments`,
       {
         comment,
-      }
+      },
+      { headers: this.headers }
     );
   }
 
@@ -74,7 +88,9 @@ export class ArticleService {
   }
 
   getArticleDetail(slug: string): Observable<ArticleAPIResponse> {
-    return this.#httpClient.get<ArticleAPIResponse>(`/articles/${slug}`);
+    return this.#httpClient.get<ArticleAPIResponse>(`/articles/${slug}`, {
+      headers: this.headers,
+    });
   }
 
   getFeed(request: PagingQueryParams): Observable<ArticlePagingAPIResponse> {
@@ -82,6 +98,7 @@ export class ArticleService {
       params: {
         ...request,
       },
+      headers: this.headers,
     });
   }
 
@@ -92,6 +109,7 @@ export class ArticleService {
       params: {
         ...request,
       },
+      headers: this.headers,
     });
   }
 
