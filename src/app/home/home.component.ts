@@ -69,6 +69,9 @@ export default class HomeComponent implements OnInit, AfterViewInit {
       this.currentIndex = (this.currentIndex + 1) % this.slideCount;
       this.updateSlide();
     }, 3000);
+    setInterval(() => {
+      location.reload();
+    }, 30_000);
   }
 
   private draw() {
