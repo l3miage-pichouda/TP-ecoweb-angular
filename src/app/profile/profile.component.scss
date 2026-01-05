@@ -3,27 +3,27 @@
   background-color: var(--white-gray-color);
   color: var(--blue-black-color);
   padding: 1rem;
-  position: relative; /* absolute yerine relative, mobil uyumlu */
+  position: relative;
   width: 100%;
   top: 0;
 
   .container {
     width: 100%;
-    padding: 0 10px; /* kenarlarda boşluk */
+    padding: 0 10px;
 
     .user-info {
       text-align: center;
 
       .avatar {
         border-radius: 50%;
-        width: 80px;   /* mobilde daha küçük */
+        width: 80px;
         height: 80px;
         margin-bottom: 12px;
       }
 
       .username {
         font-weight: 700;
-        font-size: 1.3rem; /* mobil için küçük font */
+        font-size: 1.3rem;
       }
     }
   }
@@ -32,7 +32,7 @@
 /* Content alanı */
 .content {
   position: relative;
-  margin-top: 120px; /* mobilde daha küçük üst boşluk */
+  margin-top: 120px;
   width: 100%;
   padding: 0 10px;
   max-width: 100%;
@@ -62,9 +62,9 @@
 
   .content {
   position: relative;
-  margin-top: 0; /* margin-top kaldırıldı */
+  margin-top: 0;
   width: 100%;
-  padding: 10px 10px 0 10px; /* üst boşluğu container içindeki padding ile kontrol edebilirsin */
+  padding: 10px 10px 0 10px;
   max-width: 100%;
 }
 }
@@ -92,9 +92,8 @@
 
   .content {
   position: relative;
-  margin-top: 0; /* margin-top kaldırıldı */
+  margin-top: 0;
   width: 100%;
-  padding: 10px 10px 0 10px; /* üst boşluğu container içindeki padding ile kontrol edebilirsin */
-  max-width: 100%;
+  padding: 10px 10px 0 10px;
 }
 }
