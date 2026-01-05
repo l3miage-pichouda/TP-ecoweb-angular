@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -31,7 +32,7 @@ import { TagsComponent } from './ui/tags/tags.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideComponentStore(HomeStore)],
 })
-export default class HomeComponent implements OnInit {
+export default class HomeComponent implements OnInit, AfterViewInit {
   readonly #homeStore = inject(HomeStore);
   readonly #authStore = inject(AuthStore);
   readonly articleCount = this.#homeStore.selectors.articleCount;
@@ -40,8 +41,12 @@ export default class HomeComponent implements OnInit {
   readonly articleList = this.#homeStore.selectors.articleList;
 
   @ViewChild('canvasEl') canvasEl!: ElementRef;
+  @ViewChild('slides') slides!: ElementRef;
 
   private context: CanvasRenderingContext2D | null = null;
+
+  slideCount = 0;
+  currentIndex = 0;
 
   ngAfterViewInit() {
     this.context = (
@@ -49,6 +54,21 @@ export default class HomeComponent implements OnInit {
     ).getContext('2d');
 
     this.draw();
+    this.slideCount = this.slides.nativeElement.children.length;
+    document.querySelector('.next')!.addEventListener('click', () => {
+      this.currentIndex = (this.currentIndex + 1) % this.slideCount;
+      this.updateSlide();
+    });
+
+    document.querySelector('.prev')!.addEventListener('click', () => {
+      this.currentIndex =
+        (this.currentIndex - 1 + this.slideCount) % this.slideCount;
+      this.updateSlide();
+    });
+    setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.slideCount;
+      this.updateSlide();
+    }, 3000);
   }
 
   private draw() {
@@ -137,5 +157,11 @@ export default class HomeComponent implements OnInit {
 
   toggleFavorite(article: Article): void {
     this.#homeStore.toggleFavorite(article);
+  }
+
+  updateSlide() {
+    this.slides.nativeElement.style.transform = `translateX(-${
+      this.currentIndex * 100
+    }%)`;
   }
 }
