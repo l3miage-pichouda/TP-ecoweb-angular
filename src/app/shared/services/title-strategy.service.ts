@@ -1,9 +1,9 @@
-import { inject, Injectable } from "@angular/core";
-import { Title } from "@angular/platform-browser";
-import { RouterStateSnapshot, TitleStrategy } from "@angular/router";
+import { inject, Injectable } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TitleStrategyService extends TitleStrategy {
   private readonly titleService = inject(Title);
@@ -11,8 +11,7 @@ export class TitleStrategyService extends TitleStrategy {
   updateTitle(snapshot: RouterStateSnapshot): void {
     const title = this.buildTitle(snapshot);
     if (title) {
-      this.titleService.setTitle(`${title} - Conduit`);
+      this.titleService.setTitle(`${title} - Site web lambda`);
     }
   }
-
 }
