@@ -1,5 +1,7 @@
 <div class="banner" *ngIf="!isAuthenticated()">
   <h1 class="title">conduit</h1>
+  <img src="assets/minion.gif" />
+  <img src="assets/minion2.gif" />
   <p class="description">A place to share your knowledge</p>
 </div>
 <div
@@ -8,7 +10,10 @@
 >
   <div class="col-9">
     <app-feed-toggle (toggleFeed)="toggleFeed($event)"></app-feed-toggle>
-    <app-article-list (toggleFavorite)="toggleFavorite($event)" [articleList]="articleList"></app-article-list>
+    <app-article-list
+      (toggleFavorite)="toggleFavorite($event)"
+      [articleList]="articleList"
+    ></app-article-list>
     <app-pagination
       [totalCount]="articleCount"
       [offset]="currentOffset"
