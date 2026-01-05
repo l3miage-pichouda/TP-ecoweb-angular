@@ -1,20 +1,37 @@
+/* Mobile-first: default küçük ekran */
 .banner {
   background-color: var(--green-color);
   text-align: center;
   color: #fff;
-  padding: 2rem;
-  position: absolute;
+  padding: 1rem; /* mobilde daha az padding */
+  position: relative; /* absolute yerine relative, mobilde daha uyumlu */
   width: 100%;
-  left: 0;
-  top: 58px;
+  top: 0; /* mobilde top boş bırakıldı */
+
   .title {
     font-family: var(--font-titillium);
-    font-size: 3.5rem;
+    font-size: 2rem; /* mobil için küçük font */
     padding-bottom: 0.5rem;
   }
 
   .description {
-    font-size: 1.5rem;
+    font-size: 1rem; /* mobil için küçültüldü */
     font-weight: 300 !important;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .banner {
+    padding: 2rem;
+    top: 58px; /* eski değer desktop için geri geldi */
+
+    .title {
+      font-size: 3.5rem; /* orijinal boyut */
+    }
+
+    .description {
+      font-size: 1.5rem; /* orijinal boyut */
+    }
   }
 }

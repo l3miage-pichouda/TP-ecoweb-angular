@@ -1,16 +1,33 @@
+/* Mobile-first: default mobile */
 footer {
-  height: 66px;
   background-color: var(--blue-black-color);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 10px 0;
+
   a {
     color: var(--white-color);
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
 
     &:hover {
       text-decoration: underline;
     }
+  }
+}
+
+
+/* Desktop */
+@media (min-width: 1200px) {
+  footer {
+    height: 66px;
+    padding: 0;
+  }
+
+  footer a {
+    font-size: 1.5rem;
   }
 }
