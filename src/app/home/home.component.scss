@@ -1,21 +1,21 @@
-/* Mobile-first: default küçük ekran */
+/* Mobile-first: default mobile */
 .banner {
   background-color: var(--green-color);
   text-align: center;
   color: #fff;
-  padding: 1rem; /* mobilde daha az padding */
-  position: relative; /* absolute yerine relative, mobilde daha uyumlu */
+  padding: 1rem;
+  position: relative;
   width: 100%;
-  top: 0; /* mobilde top boş bırakıldı */
+  top: 0;
 
   .title {
     font-family: var(--font-titillium);
-    font-size: 2rem; /* mobil için küçük font */
+    font-size: 2rem;
     padding-bottom: 0.5rem;
   }
 
   .description {
-    font-size: 1rem; /* mobil için küçültüldü */
+    font-size: 1rem;
     font-weight: 300 !important;
   }
 }
@@ -24,14 +24,14 @@
 @media (min-width: 1200px) {
   .banner {
     padding: 2rem;
-    top: 58px; /* eski değer desktop için geri geldi */
+    top: 58px;
 
     .title {
-      font-size: 3.5rem; /* orijinal boyut */
+      font-size: 3.5rem;
     }
 
     .description {
-      font-size: 1.5rem; /* orijinal boyut */
+      font-size: 1.5rem;
     }
   }
 }

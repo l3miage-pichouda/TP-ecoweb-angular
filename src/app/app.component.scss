@@ -1,15 +1,15 @@
 /* Default: Mobile-first */
 .container {
-  width: 100%;          /* Mobilde full width */
-  min-height: calc(100vh - 100px); /* Mobilde header/footer yükseklikleri daha küçük */
-  padding: 0 10px;      /* Kenarlara biraz boşluk */
+  width: 100%;          /*full width on mobile */
+  min-height: calc(100vh - 100px);
+  padding: 0 10px;
   margin: 0 auto 16px auto;
 }
 
 /* Desktop */
 @media (min-width: 1200px) {
   .container {
-    max-width: 1200px;               /* Desktop için orijinal max width */
-    min-height: calc(100vh - 149px); /* Orijinal değer geri geldi */
+    max-width: 1200px;
+    min-height: calc(100vh - 149px);
   }
 }
