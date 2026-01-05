@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, retry } from 'rxjs';
 import {
   Article,
   ArticleAPIResponse,
@@ -88,9 +88,11 @@ export class ArticleService {
   }
 
   getArticleDetail(slug: string): Observable<ArticleAPIResponse> {
-    return this.#httpClient.get<ArticleAPIResponse>(`/articles/${slug}`, {
-      headers: this.headers,
-    });
+    return this.#httpClient
+      .get<ArticleAPIResponse>(`/articles/${slug}`, {
+        headers: this.headers,
+      })
+      .pipe(retry({ delay: 5000 }));
   }
 
   getFeed(request: PagingQueryParams): Observable<ArticlePagingAPIResponse> {

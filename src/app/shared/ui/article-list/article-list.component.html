@@ -1,5 +1,6 @@
 <ng-container *ngIf="articleList().length !== 0; else noArticle">
   <ng-container *ngFor="let article of articleList()">
+    
     <app-article [article]="article" (toggleFavorite)="toggleFavorite.emit($event)"></app-article>
   </ng-container>
 </ng-container>
